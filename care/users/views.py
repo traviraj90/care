@@ -38,7 +38,7 @@ class SignupView(View):
             user_obj.save()
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password1")
-            user = authenticate(username=username, password=password)
+            user = authenticate(request=request, username=username, password=password)
             login(request, user)
             return redirect("home")
         return render(request, self.template, {"form": form})
@@ -62,7 +62,7 @@ class SigninView(View):
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
+            user = authenticate(request=request, username=username, password=password)
             if user:
                 if user.is_active:
                     login(request, user)
